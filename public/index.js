@@ -2,44 +2,22 @@ const BASE_URL = 'http://localhost:3000'
 let state = [];
 
 const getTodoList = async () => {
-  const response = await fetch(BASE_URL + '/todo', {
-    method: 'GET',
-  });
-  return await response.json()
+  return state;
 };
 
 const addTodoList = async (title) => {
-  const response = await fetch(BASE_URL + '/todo', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title,
-      success: false,
-    })
+  state.push({
+    title,
+    success: false,
   })
 }
 
 const updateTodoList = async (id, success) => {
-  const response = await fetch(BASE_URL + '/todo/' + id, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      success
-    }),
-  })
+  state[id].success = success;
 }
 
 const deleteTodoList = async (id) => {
-  const response = await fetch(BASE_URL + '/todo/' + id, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'DELETE'
-  })
+  state.splice(id, 1);
 }
 
 const render = async () => {
